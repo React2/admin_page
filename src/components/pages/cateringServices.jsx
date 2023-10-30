@@ -10,7 +10,18 @@ import HOC from "../layout/HOC";
 import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
-
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Img,
+} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 const CateringServices = () => {
   const [prop, setProp] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,8 +43,8 @@ const CateringServices = () => {
     const url = BaseUrl() + "/api/v1/admin/getAllVendor";
     try {
       const res = await axios.get(url, auth);
-      Setrestaurant(res.data);
-      console.log(res.data);
+      Setrestaurant(res.data.data);
+      console.log(res.data.data);
       setLoading(false);
     } catch (err) {
       // console.log("err", err);
@@ -115,7 +126,116 @@ const CateringServices = () => {
                 />
               </div>
             </div>
+            <TableContainer
+              style={{
+                width: "90%",
+                margin: "auto",
+                marginTop: "30px",
+                paddingTop: "10px",
+                height: "500px",
+                overflow: "auto",
+                boxShadow:
+                  "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.21) 0px 3px 6px",
+                borderRadius: "10px",
+              }}
+            >
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th
+                      style={{
+                        fontSize: "18px",
+                        textAlign: "center",
+                        paddingBottom: "30px",
+                      }}
+                    >
+                      Full Name
+                    </Th>
+                    <Th
+                      style={{
+                        fontSize: "18px",
+                        textAlign: "center",
+                        paddingBottom: "30px",
+                      }}
+                    >
+                      Email
+                    </Th>
+                    <Th
+                      style={{
+                        fontSize: "18px",
+                        textAlign: "center",
+                        paddingBottom: "30px",
+                      }}
+                    >
+                      Mobile No.
+                    </Th>
+                    <Th
+                      style={{
+                        fontSize: "18px",
+                        textAlign: "center",
+                        paddingBottom: "30px",
+                      }}
+                    >
+                      Account Verification
+                    </Th>
+                    <Th
+                      style={{
+                        fontSize: "16px",
+                        textAlign: "center",
+                        paddingBottom: "30px",
+                      }}
+                    >
+                      Delete Product
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody
+                  style={{
+                    color: "black",
 
+                    margin: "auto",
+                    height: "100px",
+                    overflowY: "auto",
+                  }}
+                >
+                  {restaurant.data?.map((e, i) => (
+                    <Tr key={i}>
+                      {/* <Td>
+                <Img
+                  src={e.image}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    margin: "auto",
+                    borderRadius: "10px",
+                  }}
+                />
+              </Td> */}
+                      <Td fontSize={"21"} textAlign="center">
+                        {e.fullName}
+                      </Td>
+                      <Td fontSize={"21"} textAlign="center">
+                        {e.email}
+                      </Td>
+                      <Td fontSize={"21"} textAlign="center">
+                        {e.phone}
+                      </Td>
+                      <Td fontSize={"21"} textAlign="center">
+                        {e.accountVerification ? "Verified" : "Pending"}
+                      </Td>
+                      <Td>
+                        <button style={{ paddingLeft: "38%" }}>
+                          <DeleteIcon
+                            style={{ fontSize: "25px" }}
+                            onClick={() => deletehandler(e._id)}
+                          />
+                        </button>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
             <form
               className="grid  grid-cols-1 gap-x-7 gap-y-4 p-4"
               onSubmit={addRestaurant}
@@ -201,150 +321,123 @@ const CateringServices = () => {
           </div>
         </section>
         <div className=" wcomp overflow-y-auto">
-          {loading && <Oval className="align-center" />}
-
-          <table className="table-auto  w-full text-left whitespace-no-wrap">
-            <thead>
-              <tr className="border-b bg-slate-200 shadow-xl text-gray-900">
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  Full Name
-                </th>
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  Email
-                </th>
-
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  Status
-                </th>
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  userType
-                </th>
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  wallet
-                </th>
-                <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
-                  City
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {restaurant.data?.map((e, i) => {
-                return (
-                  <tr
-                    style={{ marginTop: "10px" }}
-                    key={i}
-                    className="tracking-wider text-gray-900"
+          {loading && <Oval className="align-center text-aligin" />}
+          <TableContainer
+            style={{
+              width: "90%",
+              margin: "auto",
+              marginTop: "30px",
+              paddingTop: "10px",
+              height: "500px",
+              overflow: "auto",
+              boxShadow:
+                "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.21) 0px 3px 6px",
+              borderRadius: "10px",
+              marginBottom: "10px",
+            }}
+          >
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  {/* <Th
+                              style={{
+                                fontSize: "18px",
+                                textAlign: "center",
+                                paddingBottom: "30px",
+                              }}
+                            >
+                              Banner Image
+                            </Th> */}
+                  <Th
+                    style={{
+                      fontSize: "18px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
                   >
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.fullName}
-                    </td>
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.email}
-                    </td>
+                    Full Name
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "18px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Email
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "18px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Mobile No.
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "18px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Wallet
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "18px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Language
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    City
+                  </Th>
+                </Tr>
+              </Thead>
+              <Tbody
+                style={{
+                  color: "black",
 
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.status}
-                    </td>
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.userType}
-                    </td>
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
+                  margin: "auto",
+                  height: "100px",
+                  overflowY: "auto",
+                }}
+              >
+                {restaurant.map((e, i) => (
+                  <Tr key={i}>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.fullName}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.email}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.phone}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
                       {e.wallet}
-                    </td>
-                    <td
-                      style={{ fontSize: "15px" }}
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.language}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
                       {e.city}
-                    </td>
-                    {/* <td
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      <img
-                        src={`https://amol-home-foodie.herokuapp.com/${e.restaurantMenu}`}
-                        alt={e.name}
-                        className="xl:w-36 shadow-xl rounded-lg lg:w-32 md:w-28 w-24"
-                      />
-                    </td>
-                    <td
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.role}
-                    </td>
-                    <td
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.numRatings}
-                    </td>
-                    <td
-                      onClick={() => navigate(`/Restaurantby/${e._id}`)}
-                      className="px-4 py-3 md:text-base text-sm cursor-pointer"
-                    >
-                      {e.avgStarRating}
-                    </td>
-                    <td className="px-4 py-3  space-x-3">
-                      <button className="font-semibold tracking-widest">
-                        <BsEyeFill
-                          className="text-lg md:text-2xl"
-                          onClick={() => navigate(`/${e._id}/dishes`)}
-                        />
-                      </button>
-                    </td>
-                    <td className="px-4 py-3  space-x-3">
-                      <button className="font-semibold tracking-widest">
-                        <BsEyeFill
-                          className="text-lg md:text-2xl"
-                          onClick={() =>
-                            navigate(`/restaurant/${e._id}/coupons`)
-                          }
-                        />
-                      </button>
-                    </td>
-                    <td className="px-4 py-3  space-x-3">
-                      <button className="font-semibold tracking-widest">
-                        <BsEyeFill
-                          className="text-lg md:text-2xl"
-                          onClick={() => navigate(`/${e._id}/categories`)}
-                        />
-                      </button>
-                    </td>
-                    <td className="px-4 py-3  space-x-3">
-                      <button className="font-semibold tracking-widest">
-                        <GrFormClose
-                          className="text-lg md:text-2xl"
-                          onClick={() => deleteRestaurant(e._id)}
-                        />
-                      </button>
-                    </td> */}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </div>
       </section>
     </>

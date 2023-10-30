@@ -5,6 +5,7 @@ import axios from "axios";
 import auth from "../../Auth";
 import BaseUrl from "../../BaseUrl";
 import { toast } from "react-toastify";
+import NewUser from "./NewUser";
 
 const Users = () => {
   const [popup, setPopup] = useState(false);
@@ -46,8 +47,8 @@ const Users = () => {
             All Users
           </span>
         </div>
-
-        <div className=" wcomp overflow-y-auto">
+        <NewUser />
+        {/* <div className=" wcomp overflow-y-auto">
           <table className="table-auto  w-full text-left whitespace-no-wrap">
             <thead style={{ fontSize: "15px" }}>
               <tr className=" border-b bg-slate-200 shadow-xl text-gray-900">
@@ -107,7 +108,7 @@ const Users = () => {
                     </td>
                     <td className="px-4 py-3 md:text-base text-sm">{e.role}</td>{" "}
                     */}
-                    <td
+        {/* <td
                       className="px-4 py-3  space-x-3"
                       style={{
                         fontSize: "14px",
@@ -125,7 +126,7 @@ const Users = () => {
               })}
             </tbody>
           </table>
-        </div>
+        </div> */}{" "}
       </section>
     </>
   );

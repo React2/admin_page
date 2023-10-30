@@ -11,7 +11,20 @@ import { Oval } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { BsEyeFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Img,
+} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 const Restaurant = () => {
   const [prop, setProp] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -227,8 +240,139 @@ const Restaurant = () => {
         </section>
         <div className=" wcomp overflow-y-auto">
           {loading && <Oval className="align-center" />}
+          <TableContainer
+            style={{
+              width: "90%",
+              margin: "auto",
+              marginTop: "30px",
 
-          <table className="table-auto  w-full text-left whitespace-no-wrap">
+              height: "550px",
+              overflow: "auto",
+              boxShadow:
+                "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+              borderRadius: "10px",
+              marginBottom: "8px",
+            }}
+          >
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Image
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Category
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Price
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Quantity
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Rationgs
+                  </Th>
+                  <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Product Stock
+                  </Th>
+                  {/* <Th
+                    style={{
+                      fontSize: "16px",
+                      textAlign: "center",
+                      paddingBottom: "30px",
+                    }}
+                  >
+                    Delete Product
+                  </Th> */}
+                </Tr>
+              </Thead>
+              <Tbody
+                style={{
+                  color: "black",
+
+                  margin: "auto",
+                  height: "100px",
+                  overflowY: "auto",
+                }}
+              >
+                {restaurant.map((e, i) => (
+                  <Tr key={i}>
+                    <Td>
+                      <Img
+                        src={e.category.image}
+                        style={{
+                          width: "80px",
+                          height: "80px",
+                          margin: "auto",
+                          borderRadius: "10px",
+                        }}
+                      />
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.category.name}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.price}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.quantity}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.ratings}
+                    </Td>
+                    <Td fontSize={"21"} textAlign="center">
+                      {e.Stock}
+                    </Td>
+                    {/* <Td>
+                      <button style={{ paddingLeft: "2%" }}>
+                        <DeleteIcon
+                          style={{ fontSize: "25px" }}
+                          onClick={() => deleteRestaurant(e._id)}
+                        />
+                      </button>
+                    </Td> */}
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
+          {/* <table className="table-auto  w-full text-left whitespace-no-wrap">
             <thead>
               <tr className=" border-b bg-slate-200 shadow-xl text-gray-900">
                 <th className="px-4 py-3 title-font tracking-widest font-medium md:text-base text-sm  ">
@@ -312,7 +456,7 @@ const Restaurant = () => {
                 );
               })}
             </tbody>
-          </table>
+          </table> */}
         </div>
       </section>
     </>
