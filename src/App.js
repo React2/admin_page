@@ -1,137 +1,101 @@
-import { Routes, Route, Link } from "react-router-dom";
-import Login from "./components/forms/Login";
-import Dashboard from "./components/pages/Dashboard";
+/** @format */
+
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Products from "./components/pages/products/Products";
-import Categories from "./components/pages/categories/Categories";
-import Banner from "./components/pages/banner/Banner";
-import Orders from "./components/pages/orders/Orders";
-import Terms from "./components/pages/terms/Terms";
-import Privacy from "./components/pages/privacyPolicy/Privacy";
-import Support from "./components/pages/support/Support";
-import Wishlist from "./components/pages/wishlist/Wishlist";
-import AddProduct from "./components/pages/products/AddProduct";
-import VendorLogin from "./vendorPanel/components/forms/VendorLogin.jsx";
-import VendorProducts from "./vendorPanel/components/pages/products/VendorProducts";
-import VendorCategories from "./vendorPanel/components/pages/categories/VendorCategories";
-import VendorOrders from "./vendorPanel/components/pages/orders/VendorOrders";
-import VendorSupport from "./vendorPanel/components/pages/support/VendorSupport";
-import Commission from "./vendorPanel/components/pages/commission/Commission";
-import VendorReports from "./vendorPanel/components/pages/reports/VendorReports";
-import VendorComplaints from "./vendorPanel/components/pages/complaints/VendorComplaints";
-import VendorComments from "./vendorPanel/components/pages/comments/VendorComments";
-import VendorTransactions from "./vendorPanel/components/pages/transactions/VendorTransactions";
-import VendorUsers from "./vendorPanel/components/pages/users/VendorUsers";
-import VendorDashboard from "./vendorPanel/components/pages/VendorDashboard";
-import VendorPrivacy from "./vendorPanel/components/pages/privacyPolicy/VendorPrivacy";
-import VendorFavorites from "./components/pages/favorites/VendorFavorites";
-import CouponsDiscount from "./vendorPanel/components/pages/couponsDiscount/CouponsDiscount";
-import Forgot from "./components/forms/Forgot";
-import Vendors from "./components/pages/vendors/Vendors";
-import VerifyOtp from "./components/forms/VerifyOtp";
-import VendorAddProduct from "./vendorPanel/components/pages/products/VendorAddProduct";
-import VendorViewProduct from "./vendorPanel/components/pages/products/VendorViewProduct";
-import Payment2 from "./components/pages/paymentGateway/payment2";
-import Payment3 from "./components/pages/paymentGateway/payment3";
-import Notification from "./components/pages/notifications";
-import Setting from "./components/pages/setting/Setting";
-import Coupon from "./components/pages/coupons/Coupon";
-import Signup from "./components/pages/SignUP/Signup";
-import Profile from "./components/pages/profileUpdate/Profile";
-import Restaurant from "./components/pages/Restaurant/Restaurant";
-import Restaurantby from "./components/pages/Restaurant/Restaurantby";
-import Dishes from "./components/pages/Dishes/Dishes";
-import AboutUs from "./components/pages/aboutus/AboutUs";
-import Users from "./components/pages/users/Users";
-import ViewOrder from "./components/pages/orders/ViewOrder";
-import UserTransactions from "./components/pages/orders/UserTransactions";
-import PlanType from "./vendorPanel/components/pages/planType";
-import MealType from "./vendorPanel/components/pages/mealType";
-import VendorDishes from "./vendorPanel/components/pages/vendorDishes";
-import VendorNotification from "./vendorPanel/components/pages/vendorNotification";
-import CateringServices from "./components/pages/cateringServices";
-import DeliveryAgents from "./components/pages/deliveryAgents";
+// Vendor Panel
+import Login from "./Vendor/forms/Login";
+import Dashboard from "./Vendor/pages/Dashboard/Dashboard";
+import Product from "./Vendor/pages/Product/Product";
+import CreateProduct from "./Vendor/pages/Product/CreateProduct";
+import SingleProduct from "./Vendor/pages/Product/SingleProduct";
+import EditProduct from "./Vendor/pages/Product/EditProduct";
+import ProductVariant from "./Vendor/pages/Product/ProductVariant";
+import IndivisualVarient from "./Vendor/pages/Product/IndivisualVarient";
+import Unit from "./Vendor/pages/unit/Unit";
+import Category from "./Vendor/pages/category/Category";
+import SubCategory from "./Vendor/pages/subcategory/SubCategory";
+import Colors from "./Vendor/pages/colors/Colors";
+// ---------------------
 
+// Admin Panel
+import AdminLogin from "./Admin/forms/AdminLogin";
+import Order from "./Vendor/pages/Order/Order";
+import ViewOrder from "./Vendor/pages/Order/ViewOrder";
+import AdminDashboard from "./Admin/pages/Dashboard/AdminDashboard";
+import AdminBanner from "./Admin/pages/Banner/AdminBanner";
+import AdminSubCategory from "./Admin/pages/subcategory/AdminSubCategory";
+import AdminCategory from "./Admin/pages/category/AdminCategory";
+import AdminProduct from "./Admin/pages/Product/AdminProduct";
+import AdminSingleProduct from "./Admin/pages/Product/AdminSingleProduct";
+import AdminOrder from "./Admin/pages/Order/AdminOrder";
+import AdminViewOrder from "./Admin/pages/Order/AdminViewOrder";
+import Transaction from "./Admin/pages/Transaction/Transaction";
+import Kyc from "./Admin/pages/KYC/Kyc";
+import VendorKyc from "./Vendor/pages/KYC/VendorKyc";
+import User from "./Admin/pages/User/User";
+import Vendor from "./Admin/pages/Vendor/Vendor";
+import Coupon from "./Admin/pages/Coupon/Coupon";
+import Notification from "./Admin/pages/Notification/Notification";
+import VendorKyb from "./Vendor/pages/KYC/VendorKyb";
+import Kyb from "./Admin/pages/KYC/Kyb";
+import KybView from "./Admin/pages/KYC/KybView";
+import ReturnOrder from "./Admin/pages/Order/ReturnOrder";
+import Ticket from "./Admin/pages/Ticket/Ticket";
+import COD from "./Admin/pages/COD/COD";
+import VReturnOrder from "./Vendor/pages/Order/VReturnOrder";
+// ----------------
 function App() {
-  function displayHide() {
-    document.getElementById("link").style.display = "none";
-  }
-
   return (
     <>
-      <ToastContainer />
-      {/* <Link to="/login" id="link" onClick={() => displayHide()}>
-        Login
-      </Link> */}
+      <ToastContainer
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-
-        <Route path="/forgotPassword" element={<Forgot />} />
-        <Route path="/verifyOtp" element={<VerifyOtp />} />
-        <Route path="/vendors" element={<Vendors />} />
-
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Category" element={<Category />} />
+        <Route path="/SubCategory" element={<SubCategory />} />
+        <Route path="/Product" element={<Product />} />
+        <Route path="/create-product" element={<CreateProduct />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+        <Route path="/edit-product/:id" element={<EditProduct />} />
+        <Route path="/vendor/unit/list" element={<Unit />} />
+        <Route path="/product-variant/:id/:name" element={<ProductVariant />} />
+        <Route path="/indivisual-varient/:id" element={<IndivisualVarient />} />
+        <Route path="/vendor/colors" element={<Colors />} />
+        <Route path="/vendor-order" element={<Order />} />
+        <Route path="/vendor/order/:id" element={<ViewOrder />} />
+        <Route path="/vendor/return-order" element={<VReturnOrder />} />
 
-        <Route path="/products" element={<Products />} />
-
-        <Route path="/:id/categories" element={<Categories />} />
-        <Route path="/banners" element={<Banner />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/privacyPolicy" element={<Privacy />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/addProduct" element={<AddProduct />} />
-        <Route path="/payment" element={<Payment2 />} />
-        <Route path="/payment-3" element={<Payment3 />} />
-        <Route path="/notifications" element={<Notification />} />
-        <Route path="/setting" element={<Setting />} />
-        <Route path="/restaurant/:id/coupons" element={<Coupon />} />
-        <Route path="/signup" element={<Signup />} />
-
-        <Route path="/profile" element={<Profile />} />
-
-        <Route path="/restaurants" element={<Restaurant />} />
-
-        <Route path="/Restaurantby/:id" element={<Restaurantby />} />
-        <Route path="/:id/dishes" element={<Dishes />} />
-        <Route path="/about-us" element={<AboutUs />} />
-
-        <Route path="/users" element={<Users />} />
-        <Route path="/dishes" element={<Dishes />} />
-
-        <Route path="/vieworder/:id" element={<ViewOrder />} />
-        <Route path="/usertransactions/:id" element={<UserTransactions />} />
-
-        {/* /restaurant/:id/coupons */}
-
-        {/* ---------------Vendor Panel----------------------- */}
-        <Route path="/vendorLogin" element={<VendorLogin />} />
-        <Route path="/vendorDashboard" element={<VendorDashboard />} />
-        <Route path="/vendorProducts" element={<VendorProducts />} />
-        <Route path="/vendorViewProduct/:id" element={<VendorViewProduct />} />
-        <Route path="/vendorAddProduct" element={<VendorAddProduct />} />
-        <Route path="/vendorCategories" element={<VendorCategories />} />
-        <Route path="/vendorOrders" element={<VendorOrders />} />
-        <Route path="/vendorSupport" element={<VendorSupport />} />
-        <Route path="/commission" element={<Commission />} />
-        <Route path="/vendorReports" element={<VendorReports />} />
-        <Route path="/vendorComplaints" element={<VendorComplaints />} />
-        <Route path="/vendorComments" element={<VendorComments />} />
-        <Route path="/vendorTransactions" element={<VendorTransactions />} />
-        <Route path="/vendorUsers" element={<VendorUsers />} />
-        <Route path="/vendorPrivacy" element={<VendorPrivacy />} />
-        <Route path="/vendorFavorites" element={<VendorFavorites />} />
-        <Route path="/vendorCoupons" element={<CouponsDiscount />} />
-        <Route path="/vendorCommission" element={<Commission />} />
-        <Route path="/vendorPlanType" element={<PlanType />} />
-        <Route path="/vendorMealType" element={<MealType />} />
-        <Route path="/vendorDishes" element={<VendorDishes />} />
-        <Route path="/vendorNotification" element={<VendorNotification />} />
-        <Route path="/cateringServices" element={<CateringServices />} />
-        <Route path="/deliveryAgents" element={<DeliveryAgents />} />
+        <Route path="/vendor/kyc" element={<VendorKyc />} />
+        <Route path="/vendor/kyb" element={<VendorKyb />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/banner" element={<AdminBanner />} />
+        <Route path="/admin/sub-category" element={<AdminSubCategory />} />
+        <Route path="/admin/category" element={<AdminCategory />} />
+        <Route path="/vendor-list" element={<Vendor />} />
+        <Route path="/user-list" element={<User />} />
+        <Route path="/admin/product" element={<AdminProduct />} />
+        <Route path="/admin/product/:id" element={<AdminSingleProduct />} />
+        <Route path="/admin/order" element={<AdminOrder />} />
+        <Route path="/admin/order/:id" element={<AdminViewOrder />} />
+        <Route path="/admin/transaction" element={<Transaction />} />
+        <Route path="/admin/kyc-list" element={<Kyc />} />
+        <Route path="/admin/kyb" element={<Kyb />} />
+        <Route path="/coupon" element={<Coupon />} />
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/kyb-view/:id" element={<KybView />} />
+        <Route path="/return-order" element={<ReturnOrder />} />
+        <Route path="/admin/ticket" element={<Ticket />} />
+        <Route path="/admin/COD" element={<COD />} />
       </Routes>
     </>
   );
