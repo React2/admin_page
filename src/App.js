@@ -45,6 +45,8 @@ import COD from "./Admin/pages/COD/COD";
 import VReturnOrder from "./Vendor/pages/Order/VReturnOrder";
 import AllDriver from "./Admin/pages/Driver/AllDriver";
 import AllQuary from "./Admin/pages/Quary/AllQuary";
+import AllComplaints from "./Admin/pages/Complaint/AllComplaints.js";
+
 // ----------------
 function App() {
   return (
@@ -100,6 +102,7 @@ function App() {
         <Route path="/admin/COD" element={<COD />} />
         <Route path="/admin/Driver" element={<AllDriver />} />
         <Route path="/admin/AllQuary" element={<AllQuary />} />
+        <Route path="/admin/AllComplaint" element={<AllComplaints />} />
       </Routes>
     </>
   );

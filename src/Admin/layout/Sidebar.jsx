@@ -50,13 +50,18 @@ const Sidebar = ({ hamb, setHamb }) => {
     },
     {
       icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
+      link: "/admin/AllComplaint",
+      name: " Complaints",
+    },
+    {
+      icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
       link: "/admin/Driver",
       name: "Driver List",
     },
     {
       icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
       link: "/admin/AllQuary",
-      name: "All Quary",
+      name: " Quary",
     },
 
     {
