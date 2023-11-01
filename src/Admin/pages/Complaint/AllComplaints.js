@@ -113,13 +113,15 @@ const AllComplaint = () => {
                   <thead>
                     <tr>
                       <th>Sno.</th>
+                      <th>VendorId</th>
+                      <th> Need To Check ProductId</th>
                       <th>Full Name</th>
                       <th>Mobile Number</th>
                       <th>Email Address</th>
 
                       {/* <th>Wallet</th> */}
                       <th style={{ paddingLeft: "28px" }}>Reason</th>
-                      <th>Location</th>
+
                       <th></th>
                       <th></th>
                       {/* <th>No. OF Reviews</th> */}
@@ -132,7 +134,10 @@ const AllComplaint = () => {
                   <tbody>
                     {filterData?.map((i, index) => (
                       <tr key={index}>
-                        <td>#{index + 1} </td>
+                        <td>{index + 1} </td>
+
+                        <td>{i.vendorId._id} </td>
+                        <td>{i._id} </td>
                         <td>{i.vendorId.fullName}</td>
                         <td>{i.vendorId.phone} </td>
                         <td>{i.vendorId.email} </td>
@@ -157,10 +162,10 @@ const AllComplaint = () => {
                         </td> */}
                         <td>
                           <span className="flexCont">
-                            <i
+                            {/* <i
                               className="fa-solid fa-trash"
                               onClick={() => deleteHandler(i._id)}
-                            />
+                            /> */}
                           </span>
                         </td>
                       </tr>
