@@ -28,6 +28,7 @@ const AdminCategory = () => {
   const [toDate, setToDate] = useState(null);
   const [editData, setEditData] = useState({});
   const [modalShow2, setModalShow2] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const FinalFromDate =
@@ -66,17 +67,19 @@ const AdminCategory = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/paginateCategoriesSearch?page=${page}&limit=${limit}&search=${search}&toDate=${FinalToDate}&fromDate=${FinalFromDate}`
+        `https://jatin-tagra-backend.vercel.app/api/v1/Category/allCategory?search=${search}`
       );
-      setData(data.data.docs);
-      setTotal(data.data.total);
-      setPages(data.data.pages);
+
+      setData(data);
+
+      setTotal(data.categories.length);
+      // setPages(data.data.pages);
       setLoading(false);
     } catch (e) {
       console.log(e);
       setLoading(false);
     }
-  }, [page, limit, search, FinalFromDate, FinalToDate]);
+  }, [search]);
 
   useEffect(() => {
     fetchData();
@@ -91,7 +94,7 @@ const AdminCategory = () => {
   const deleteHandler = async (id) => {
     try {
       const { data } = await axios.delete(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/deleteCategory/${id}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/Category/deleteCategory/${id}`,
         Auth
       );
       toast.success(data.message);
@@ -105,6 +108,7 @@ const AdminCategory = () => {
     const [name, setName] = useState(editData?.name);
     const [gender, setGender] = useState(editData?.gender);
     const [errMsg, setErrMsg] = useState(null);
+    const [image, setImage] = useState(null);
     const [submitLoading, setSubmitLoading] = useState(false);
 
     const payload = { name, gender };
@@ -112,12 +116,21 @@ const AdminCategory = () => {
     const postHandler = async (e) => {
       e.preventDefault();
       setSubmitLoading(true);
+      const newData = new FormData();
+      if (image) {
+        newData.append("image", image);
+      }
+      if (name) {
+        newData.append("name", name);
+      }
+
       try {
         const { data } = await axios.post(
-          "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/addCategory",
-          payload,
+          "https://jatin-tagra-backend.vercel.app/api/v1/Category/addCategory",
+          newData,
           Auth
         );
+
         toast.success(data.message);
         props.onHide();
         fetchData();
@@ -132,10 +145,17 @@ const AdminCategory = () => {
     const putHandler = async (e) => {
       e.preventDefault();
       setSubmitLoading(true);
+      const newData = new FormData();
+      if (image) {
+        newData.append("image", image);
+      }
+      if (name) {
+        newData.append("name", name);
+      }
       try {
         const { data } = await axios.put(
-          `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/updateCategory/${id}`,
-          payload,
+          `https://jatin-tagra-backend.vercel.app/api/v1/Category/updateCategory/${id}`,
+          newData,
           Auth
         );
         toast.success(data.message);
@@ -173,6 +193,15 @@ const AdminCategory = () => {
 
           <Form onSubmit={edit ? putHandler : postHandler}>
             <Form.Group className="mb-3">
+              <Form.Group className="mb-3">
+                <Form.Label>Image</Form.Label>
+                <Form.Control
+                  type="file"
+                  id="myImage"
+                  required
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+              </Form.Group>
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
@@ -181,7 +210,7 @@ const AdminCategory = () => {
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
               <Form.Label>Select Type</Form.Label>
               <Form.Select onChange={(e) => setGender(e.target.value)}>
                 <option> {gender} </option>
@@ -189,7 +218,7 @@ const AdminCategory = () => {
                 <option value="women">Women</option>
                 <option value="men">Men</option>
               </Form.Select>
-            </Form.Group>
+            </Form.Group> */}
 
             <Button
               style={{
@@ -337,7 +366,7 @@ const AdminCategory = () => {
           </button>
         </div>
         <section className="sectionCont">
-          <div className="filterBox">
+          {/* <div className="filterBox">
             <img
               src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
               alt=""
@@ -347,9 +376,9 @@ const AdminCategory = () => {
               placeholder="Start typing to search for Category"
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Starting Date : </label>
               <input
@@ -383,7 +412,7 @@ const AdminCategory = () => {
                 <option value={100}> 100 </option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           {loading ? (
             <Spinner animation="border" role="status" className="loadingSpin" />
@@ -397,16 +426,22 @@ const AdminCategory = () => {
                     <tr>
                       <th>No.</th>
                       <th>Name</th>
-                      <th>Image</th>
-                      <th>Type</th>
-                      <th>Status</th>
+                      <th
+                        style={{
+                          paddingLeft: "17px",
+                        }}
+                      >
+                        Image
+                      </th>
+                      {/* <th>Type</th> */}
                       <th></th>
                       <th></th>
+                      {/* <th>Status</th> */}
                     </tr>
                   </thead>
 
                   <tbody>
-                    {data?.map((i, index) => (
+                    {data.categories?.map((i, index) => (
                       <tr key={index}>
                         <td>#{index + 1} </td>
                         <td>{i.name}</td>
@@ -414,11 +449,14 @@ const AdminCategory = () => {
                           <img
                             src={i.image}
                             alt=""
-                            style={{ maxWidth: "80px" }}
+                            style={{
+                              maxWidth: "80px",
+                              maxHeight: "100px",
+                            }}
                           />
                         </td>
-                        <td>{i.gender} </td>
-                        <td> {BadgeSelector(i.approvalStatus)} </td>
+                        {/* <td>{i.gender} </td> */}
+                        {/* <td> {BadgeSelector(i.approvalStatus)} </td>
                         <td>
                           <button
                             onClick={() => {
@@ -429,7 +467,7 @@ const AdminCategory = () => {
                           >
                             Edit Status
                           </button>
-                        </td>
+                        </td> */}
                         <td>
                           <span className="flexCont">
                             <i
@@ -453,7 +491,7 @@ const AdminCategory = () => {
                 </Table>
               </div>
 
-              <div className="pagination">
+              {/* <div className="pagination">
                 <button onClick={() => Prev()} className="prevBtn">
                   <i className="fa-solid fa-backward"></i>
                 </button>
@@ -482,7 +520,7 @@ const AdminCategory = () => {
                     <i className="fa-sharp fa-solid fa-forward"></i>
                   </button>
                 )}
-              </div>
+              </div> */}
             </>
           )}
         </section>

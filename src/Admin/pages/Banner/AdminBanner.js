@@ -81,13 +81,18 @@ const AdminBanner = () => {
     const payload = new FormData();
     payload.append("image", image);
     payload.append("desc", desc);
-    payload.append("type", type);
-    payload.append("productId", productId);
+    // payload.append("type", type);
+    payload.append("categoryId", productId);
 
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(`${Baseurl}api/v1/user/Product/list`);
-        const data = res.data.data.docs;
+        const res = await axios.get(
+          `https://jatin-tagra-backend.vercel.app/api/v1/Category/allCategory`
+        );
+
+        const data = res.data;
+        // console.log(data);
+
         setProducts(data);
       } catch {}
     };
@@ -101,12 +106,31 @@ const AdminBanner = () => {
     const postHandler = async (e) => {
       e.preventDefault();
       setSubmitLoading(true);
+      let imageInput = document.getElementById("myImage");
+      let newImage = imageInput.files[0];
+      const myDesc1 = document.getElementById("myDesc1");
+      const myDesc1Value = myDesc1.value;
+
+      const newData = new FormData();
+      if (newImage) {
+        newData.append("image", newImage);
+      }
+      if (myDesc1Value) {
+        newData.append("desc", myDesc1Value);
+      }
+      if (productId) {
+        newData.append("categoryId", productId);
+      }
+      console.log(newData);
+
       try {
         const { data } = await axios.post(
           `https://jatin-tagra-backend.vercel.app/api/v1/Banner/AddBanner`,
           payload,
           Auth
         );
+        console.log(products);
+
         toast.success(data.message);
         props.onHide();
         fetchData();
@@ -156,7 +180,7 @@ const AdminBanner = () => {
           ) : (
             <div className="dangerBox">
               <Alert variant="danger"> {errMsg} </Alert>
-              <i class="fa-solid fa-x" onClick={() => setErrMsg(null)}></i>
+              <i className="fa-solid fa-x" onClick={() => setErrMsg(null)}></i>
             </div>
           )}
 
@@ -165,6 +189,7 @@ const AdminBanner = () => {
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="file"
+                id="myImage"
                 required
                 onChange={(e) => setImage(e.target.files[0])}
               />
@@ -176,6 +201,7 @@ const AdminBanner = () => {
                 <Form.Control
                   as="textarea"
                   value={desc}
+                  id="myDesc1"
                   onChange={(e) => setDesc(e.target.value)}
                   placeholder="Leave a comment here"
                   style={{ height: "100px" }}
@@ -184,24 +210,24 @@ const AdminBanner = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Type</Form.Label>
-              <Form.Control
+              {/* <Form.Label>Type</Form.Label> */}
+              {/* <Form.Control
                 type="text"
                 required
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-              />
+              /> */}
             </Form.Group>
 
             <Form.Select
               className="mb-3"
               onChange={(e) => setProductId(e.target.value)}
             >
-              <option>Select Product</option>
-              {products?.map((i, index) => (
+              <option>Select Category</option>
+              {products.categories?.map((i, index) => (
                 <option key={index} value={i._id}>
                   {" "}
-                  {i.productName}{" "}
+                  {i.name}{" "}
                 </option>
               ))}
             </Form.Select>
@@ -304,15 +330,15 @@ const AdminBanner = () => {
                         <img src={i.image} alt="" style={{ width: "80px" }} />
                       </td>
                       <td>{i.desc} </td>
-                      <td> {i.productId?.productName} </td>
-                      <td> {i.type} </td>
+                      {/* <td> {i.productId?.productName} </td> */}
+                      {/* <td> {i.type} </td> */}
                       <td>
                         <span className="flexCont">
                           <i
                             className="fa-solid fa-trash"
                             onClick={() => deleteHandler(i._id)}
                           />
-                          <i
+                          {/* <i
                             className="fa-solid fa-pen-to-square"
                             onClick={() => {
                               setEditData(i);
@@ -320,7 +346,7 @@ const AdminBanner = () => {
                               setId(i._id);
                               setModalShow(true);
                             }}
-                          ></i>
+                          ></i> */}
                         </span>
                       </td>
                     </tr>

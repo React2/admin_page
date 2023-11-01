@@ -12,7 +12,7 @@ const AdminOrder = () => {
   const [total, setTotal] = useState(0);
   const [id, setId] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [ loading , setLoading ] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const token = localStorage.getItem("token");
   const Auth = {
@@ -22,18 +22,19 @@ const AdminOrder = () => {
   };
 
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const { data } = await axios.get(
-        "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/admin/Orders",
+        "https://jatin-tagra-backend.vercel.app/api/v1/admin/allOrders",
         Auth
       );
       setData(data.data);
+      console.log(data.data);
       setTotal(data.data.length);
-      setLoading(false)
+      setLoading(false);
     } catch (e) {
       console.log(e);
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -57,7 +58,7 @@ const AdminOrder = () => {
         );
         toast.success("Status Updated Successfully");
         setSubmitLoading(false);
-        fetchData()
+        fetchData();
       } catch (e) {
         setSubmitLoading(false);
         const msg = e.response.data.message;
@@ -140,7 +141,9 @@ const AdminOrder = () => {
         </div>
 
         <section className="sectionCont">
-        {loading ?   <Spinner animation="border" role="status" className="loadingSpin" /> :  data?.length === 0 || !data ? (
+          {loading ? (
+            <Spinner animation="border" role="status" className="loadingSpin" />
+          ) : data?.length === 0 || !data ? (
             <Alert>Order Not Found</Alert>
           ) : (
             <>
@@ -152,12 +155,12 @@ const AdminOrder = () => {
                       <th>OrderId</th>
                       <th>User</th>
                       <th>Product</th>
-                      <th>Unit</th>
+                      {/* <th>Unit</th> */}
                       <th>Price</th>
                       <th>Quantity</th>
                       <th>Total</th>
                       <th>Phone Number</th>
-                      <th>Payment Option</th>
+                      {/* <th>Payment Option</th> */}
                       <th>Order status</th>
                       <th>Payment Status</th>
                       <th></th>
@@ -170,18 +173,25 @@ const AdminOrder = () => {
                         <td>#{index + 1} </td>
                         <td> {i.orderId} </td>
                         <td> {i.userId?.fullName} </td>
-                        <td> {i.productId?.productName} </td>
+                        <td> {i.productId?.name} </td>
                         <td> {i.unitInwords} </td>
                         <td> {i.productPrice} </td>
-                        <td> {i.quantity} </td>
+                        {/* <td> {i.quantity} </td> */}
                         <td> {i.total} </td>
-                        <td> {i.phone} </td>
-                        <td> {i.paymentOption} </td>
+                        <td> {i.paymentRecived.mobileNumber} </td>
+                        {/* <td> {i.paymentOption} </td> */}
                         <td> {i.orderStatus} </td>
-                        <td> {i.paymentStatus} </td>
+                        <td
+                          style={{
+                            paddingLeft: "50px",
+                          }}
+                        >
+                          {" "}
+                          {i.paymentStatus}{" "}
+                        </td>
                         <td>
                           <span className="flexCont">
-                            <Link to={`/admin/order/${i._id}`}>
+                            {/* <Link to={`/admin/order/${i._id}`}>
                               <i className="fa-solid fa-eye" />
                             </Link>
                             <i
@@ -190,7 +200,7 @@ const AdminOrder = () => {
                                 setId(i._id);
                                 setModalShow(true);
                               }}
-                            ></i>
+                            ></i> */}
                           </span>
                         </td>
                       </tr>
@@ -200,7 +210,6 @@ const AdminOrder = () => {
               </div>
             </>
           )}
-        
         </section>
       </section>
     </>

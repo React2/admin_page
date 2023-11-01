@@ -6,7 +6,7 @@ import { Table, Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const User = () => {
+const AllQuary = () => {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
@@ -23,9 +23,11 @@ const User = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        "https://jatin-tagra-backend.vercel.app/api/v1/admin/getAllUser"
+        "https://jatin-tagra-backend.vercel.app/api/v1/admin/help/getAllQuery",
+        Auth
       );
       setData(data.data);
+      console.log(data.data);
       setTotal(data.data.length);
       setLoading(false);
     } catch (e) {
@@ -40,7 +42,7 @@ const User = () => {
   const deleteHandler = async (id) => {
     try {
       const { data } = await axios.delete(
-        `https://jatin-tagra-backend.vercel.app/api/v1/admin/deleteUser/${id}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/admin/help/delete/${id}`,
         Auth
       );
       toast.success(data.message);
@@ -81,12 +83,12 @@ const User = () => {
             className="tracking-widest text-slate-900 font-semibold uppercase"
             style={{ fontSize: "1.5rem" }}
           >
-            All User's ( Total : {total} )
+            All Query's ( Total : {total} )
           </span>
         </div>
 
         <section className="sectionCont">
-          <div className="filterBox">
+          {/* <div className="filterBox">
             <img
               src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
               alt=""
@@ -96,7 +98,7 @@ const User = () => {
               placeholder="Start typing to search for User"
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div> */}
 
           {loading ? (
             <Spinner animation="border" role="status" className="loadingSpin" />
@@ -112,10 +114,15 @@ const User = () => {
                     <tr>
                       <th>Sno.</th>
                       <th>Full Name</th>
-                      <th>Phone Number</th>
+                      <th>Mobile Number</th>
                       <th>Email Address</th>
-                      <th>Wallet</th>
-                      <th>No. OF Reviews</th>
+
+                      {/* <th>Wallet</th> */}
+                      <th style={{ paddingLeft: "28px" }}>Query</th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      {/* <th>No. OF Reviews</th> */}
                       {/* <th>Status</th> */}
                       {/* <th></th>
                       <th></th> */}
@@ -126,10 +133,11 @@ const User = () => {
                     {filterData?.map((i, index) => (
                       <tr key={index}>
                         <td>#{index + 1} </td>
-                        <td>{i.fullName}</td>
-                        <td>{i.phone} </td>
+                        <td>{i.name}</td>
+                        <td>{i.mobile} </td>
                         <td>{i.email} </td>
-                        <td style={{ paddingLeft: "30px" }}>{i.wallet} </td>
+                        <td style={{ paddingLeft: "30px" }}>{i.query} </td>
+                        <td style={{ paddingLeft: "30px" }}>{i.language} </td>
                         <td style={{ paddingLeft: "50px" }}>
                           {i.numOfReviews}{" "}
                         </td>
@@ -163,4 +171,4 @@ const User = () => {
   );
 };
 
-export default HOC(User);
+export default HOC(AllQuary);

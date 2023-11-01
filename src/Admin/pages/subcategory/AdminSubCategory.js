@@ -57,9 +57,9 @@ const AdminSubCategory = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/paginate/SubCategoriesSearch?page=${page}&limit=${limit}&search=${search}&toDate=${FinalToDate}&fromDate=${FinalFromDate}`
+        `https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/all/SubCategoryForAdmin`
       );
-      setData(data.data.docs);
+      setData(data.data);
       setTotal(data.data.total);
       setPages(data.data.pages);
       setLoading(false);
@@ -82,7 +82,7 @@ const AdminSubCategory = () => {
   const deleteHandler = async (id) => {
     try {
       const { data } = await axios.delete(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/deleteSubcategory/${id}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/deleteSubcategory/${id}`,
         Auth
       );
       toast.success("Deleted Successfully");
@@ -107,9 +107,10 @@ const AdminSubCategory = () => {
     const fetchCat = async () => {
       try {
         const res = await axios.get(
-          "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/allCategory"
+          "https://jatin-tagra-backend.vercel.app/api/v1/Category/allCategory"
         );
-        setCategoryArr(res.data.data);
+        console.log(res.data);
+        setCategoryArr(res.data.categories);
       } catch {}
     };
 
@@ -124,7 +125,7 @@ const AdminSubCategory = () => {
       setSubmitLoading(true);
       try {
         const { data } = await axios.post(
-          "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/addSubcategory",
+          "https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/addSubcategory",
           fd,
           Auth
         );
@@ -144,7 +145,7 @@ const AdminSubCategory = () => {
       setSubmitLoading(true);
       try {
         const { data } = await axios.put(
-          `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/updateSubcategory/${id}`,
+          `https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/updateSubcategory/${id}`,
           fd,
           Auth
         );
@@ -266,7 +267,7 @@ const AdminSubCategory = () => {
         </button>
       </div>
       <section className="sectionCont">
-        <div className="filterBox">
+        {/* <div className="filterBox">
           <img
             src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
             alt=""
@@ -276,9 +277,9 @@ const AdminSubCategory = () => {
             placeholder="Start typing to search for Sub-Category"
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
+        </div> */}
 
-        <div className="searchByDate">
+        {/* <div className="searchByDate">
           <div>
             <label>Starting Date : </label>
             <input type="date" onChange={(e) => setFromDate(e.target.value)} />
@@ -292,9 +293,9 @@ const AdminSubCategory = () => {
               min={fromDate}
             />
           </div>
-        </div>
+        </div> */}
 
-        <div className="searchByDate">
+        {/* <div className="searchByDate">
           <div>
             <label>Showing : </label>
             <select onChange={(e) => setLimit(e.target.value)}>
@@ -309,7 +310,7 @@ const AdminSubCategory = () => {
               <option value={100}> 100 </option>
             </select>
           </div>
-        </div>
+        </div> */}
 
         {loading ? (
           <Spinner animation="border" role="status" className="loadingSpin" />
@@ -341,7 +342,9 @@ const AdminSubCategory = () => {
                         />
                       </td>
                       <td>{i.name}</td>
-                      <td>{i.categoryId?.name} </td>
+                      <td style={{ paddingLeft: "27px" }}>
+                        {i.categoryId?.name}{" "}
+                      </td>
                       <td>
                         <span className="flexCont">
                           <i
@@ -365,7 +368,7 @@ const AdminSubCategory = () => {
               </Table>
             </div>
 
-            <div className="pagination">
+            {/* <div className="pagination">
               <button onClick={() => Prev()} className="prevBtn">
                 <i className="fa-solid fa-backward"></i>
               </button>
@@ -394,7 +397,7 @@ const AdminSubCategory = () => {
                   <i className="fa-sharp fa-solid fa-forward"></i>
                 </button>
               )}
-            </div>
+            </div> */}
           </>
         )}
       </section>

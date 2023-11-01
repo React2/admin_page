@@ -43,6 +43,8 @@ import ReturnOrder from "./Admin/pages/Order/ReturnOrder";
 import Ticket from "./Admin/pages/Ticket/Ticket";
 import COD from "./Admin/pages/COD/COD";
 import VReturnOrder from "./Vendor/pages/Order/VReturnOrder";
+import AllDriver from "./Admin/pages/Driver/AllDriver";
+import AllQuary from "./Admin/pages/Quary/AllQuary";
 // ----------------
 function App() {
   return (
@@ -96,6 +98,8 @@ function App() {
         <Route path="/return-order" element={<ReturnOrder />} />
         <Route path="/admin/ticket" element={<Ticket />} />
         <Route path="/admin/COD" element={<COD />} />
+        <Route path="/admin/Driver" element={<AllDriver />} />
+        <Route path="/admin/AllQuary" element={<AllQuary />} />
       </Routes>
     </>
   );

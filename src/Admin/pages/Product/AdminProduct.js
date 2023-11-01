@@ -21,8 +21,8 @@ const AdminProduct = () => {
   const [subCatArr, setSubCatArr] = useState([]);
   const [subcategoryId, setSubCatId] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ vendorId , setVendorId] = useState("")
-  const [ vendors , setVendors ] = useState([])
+  const [vendorId, setVendorId] = useState("");
+  const [vendors, setVendors] = useState([]);
 
   const FinalFromDate =
     fromDate === null || fromDate?.length < 5
@@ -50,23 +50,21 @@ const AdminProduct = () => {
   }
 
   const token = localStorage.getItem("token");
-  
+
   const Auth = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-
-
   const getVendors = async () => {
-    try{
+    try {
       const { data } = await axios.get(
         "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/admin/getAllVendor"
       );
       setVendors(data.data);
-    }catch{}
-  }
+    } catch {}
+  };
 
   const fecthCategory = async () => {
     try {
@@ -89,10 +87,11 @@ const AdminProduct = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/admin/Product/list?page=${page}&limit=${limit}&search=${search}&toDate=${FinalToDate}&fromDate=${FinalFromDate}&categoryId=${categoryId}&subcategoryId=${subcategoryId}&vendorId=${vendorId}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/admin/allProducts`,
         Auth
       );
-      setData(data.data.docs);
+      console.log(data.data);
+      setData(data.data);
       setTotal(data.data.total);
       setPages(data.data.pages);
       setLoading(false);
@@ -107,7 +106,7 @@ const AdminProduct = () => {
     FinalToDate,
     categoryId,
     subcategoryId,
-    vendorId
+    vendorId,
   ]);
 
   useEffect(() => {
@@ -117,7 +116,7 @@ const AdminProduct = () => {
   useEffect(() => {
     fecthCategory();
     fecthSubCategory();
-    getVendors()
+    getVendors();
   }, []);
 
   const deleteHandler = async (id) => {
@@ -149,7 +148,7 @@ const AdminProduct = () => {
         </div>
 
         <section className="sectionCont">
-          <div className="filterBox">
+          {/* <div className="filterBox">
             <img
               src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
               alt=""
@@ -159,9 +158,9 @@ const AdminProduct = () => {
               placeholder="Start typing to search for Product"
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Starting Date : </label>
               <input
@@ -178,9 +177,9 @@ const AdminProduct = () => {
                 min={fromDate}
               />
             </div>
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Showing : </label>
               <select onChange={(e) => setLimit(e.target.value)}>
@@ -195,8 +194,8 @@ const AdminProduct = () => {
                 <option value={100}> 100 </option>
               </select>
             </div>
-          </div>
-          <div className="searchByDate">
+          </div> */}
+          {/* <div className="searchByDate">
             <div>
               <label>Category : </label>
               <select
@@ -212,6 +211,7 @@ const AdminProduct = () => {
                 ))}
               </select>
             </div>
+
             <div>
               <label>Sub-Category : </label>
               <select
@@ -233,9 +233,9 @@ const AdminProduct = () => {
                 )}
               </select>
             </div>
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Vendor : </label>
               <select
@@ -251,7 +251,7 @@ const AdminProduct = () => {
                 ))}
               </select>
             </div>
-          </div>
+          </div> */}
 
           {loading === true ? (
             <Alert>
@@ -276,7 +276,7 @@ const AdminProduct = () => {
                       <th>Discount</th>
                       <th>Stock</th>
                       <th>Vendor</th>
-                      <th>Created At</th>
+                      {/* <th>Created At</th> */}
                       <th></th>
                     </tr>
                   </thead>
@@ -287,29 +287,32 @@ const AdminProduct = () => {
                         <td>#{index + 1} </td>
                         <td>
                           <img
-                            src={i.productImage?.[0]}
+                            src={i.images[0].img}
                             alt=""
                             style={{ maxWidth: "80px" }}
                           />
                         </td>
-                        <td>{i.productName}</td>
-                        <td>{i.categoryId?.name}</td>
-                        <td>{i.subcategoryId?.name}</td>
-                        <td>₹{i.originalPrice}</td>
+                        <td>{i.name}</td>
+                        <td>{i.category?.name}</td>
+
+                        <td>{i.subcategory?.name}</td>
+                        <td>₹{i.price}</td>
                         <td>₹{i.discountPrice}</td>
                         <td>{i.discount}%</td>
-                        <td>{i.stock}</td>
+                        <td style={{ paddingLeft: "28px" }}>{i.Stock}</td>
                         <td> {i.vendorId?.fullName} </td>
-                        <td>{i.createdAt?.slice(0, 10)}</td>
+                        {/* <td>{i.createdAt?.slice(0, 10)}</td> */}
+                        <td></td>
+                        <td></td>
                         <td>
                           <span className="flexCont">
-                            <Link to={`/admin/product/${i._id}`}>
+                            {/* <Link to={`/admin/product/${i._id}`}>
                               <i className="fa-solid fa-eye" />
-                            </Link>
-                            <i
+                            </Link> */}
+                            {/* <i
                               className="fa-sharp fa-solid fa-trash"
                               onClick={() => deleteHandler(i._id)}
-                            ></i>
+                            ></i> */}
                           </span>
                         </td>
                       </tr>
@@ -318,7 +321,7 @@ const AdminProduct = () => {
                 </Table>
               </div>
 
-              <div className="pagination">
+              {/* <div className="pagination">
                 <button onClick={() => Prev()} className="prevBtn">
                   <i className="fa-solid fa-backward"></i>
                 </button>
@@ -347,7 +350,7 @@ const AdminProduct = () => {
                     <i className="fa-sharp fa-solid fa-forward"></i>
                   </button>
                 )}
-              </div>
+              </div> */}
             </>
           )}
         </section>
