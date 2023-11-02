@@ -113,7 +113,7 @@ const CreateProduct = () => {
       setDiscount("");
       setProductName("");
       setDescription("");
-      setReturnPolicy("");
+
       setVariant(null);
       setSize(null);
       setStock(0);
