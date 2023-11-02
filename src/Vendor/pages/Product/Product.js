@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import HOC from "../../layout/HOC";
 import { Link } from "react-router-dom";
+import { Badge } from "react-bootstrap";
 
 const Product = () => {
   const [data, setData] = useState([]);
@@ -33,6 +34,15 @@ const Product = () => {
   for (let i = 0; i < pages; i++) {
     pag.push(i);
   }
+  function BadgeSelector(status) {
+    if (status === "Pending") {
+      return <Badge bg="danger">Pending</Badge>;
+    } else if (status === true) {
+      return <Badge bg="success">Accepted</Badge>;
+    } else if (status === false) {
+      return <Badge bg="info">Pending</Badge>;
+    }
+  }
 
   function Prev() {
     if (page > 1) {
@@ -57,7 +67,7 @@ const Product = () => {
   const fecthCategory = async () => {
     try {
       const res = await axios.get(
-        "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/allCategory"
+        "https://jatin-tagra-backend.vercel.app/api/v1/Category/allCategory"
       );
       setCategoryArr(res.data.data);
     } catch {}
@@ -65,7 +75,7 @@ const Product = () => {
   const fecthSubCategory = async () => {
     try {
       const res = await axios.get(
-        "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/all/Subcategory"
+        "https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/all/Subcategory"
       );
       setSubCatArr(res.data.data);
     } catch {}
@@ -75,25 +85,18 @@ const Product = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/vendor/Product/list?page=${page}&limit=${limit}&search=${search}&toDate=${FinalToDate}&fromDate=${FinalFromDate}&categoryId=${categoryId}&subcategoryId=${subcategoryId}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/product/allProducts`,
         Auth
       );
-      setData(data.data.docs);
+      console.log(data.data);
+      setData(data.data);
       setTotal(data.data.total);
       setPages(data.data.pages);
       setLoading(false);
     } catch {
       setLoading(false);
     }
-  }, [
-    page,
-    limit,
-    search,
-    FinalFromDate,
-    FinalToDate,
-    categoryId,
-    subcategoryId,
-  ]);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -103,11 +106,25 @@ const Product = () => {
     fecthCategory();
     fecthSubCategory();
   }, []);
+  const changeStatus = (id) => {
+    console.log(Auth);
 
+    axios
+      .put(
+        `https://jatin-tagra-backend.vercel.app/api/v1/product/activeDeactiveProduct/${id}`,
+        null,
+        Auth
+      )
+      .then((res) => {
+        console.log(res.data);
+        fetchData();
+        toast.success(data.message);
+      });
+  };
   const deleteHandler = async (id) => {
     try {
       const { data } = await axios.delete(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/vendor/Product/delete/${id}`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/product/deleteProduct/${id}`,
         Auth
       );
       toast.success(data.message);
@@ -119,7 +136,7 @@ const Product = () => {
 
   return (
     <>
-      <section> 
+      <section>
         <div
           className="pb-4   w-full flex justify-between items-center"
           style={{ width: "98%", marginLeft: "2%" }}
@@ -138,7 +155,7 @@ const Product = () => {
         </div>
 
         <section className="sectionCont">
-          <div className="filterBox">
+          {/* <div className="filterBox">
             <img
               src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
               alt=""
@@ -148,9 +165,9 @@ const Product = () => {
               placeholder="Start typing to search for Product"
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Starting Date : </label>
               <input
@@ -167,9 +184,9 @@ const Product = () => {
                 min={fromDate}
               />
             </div>
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Showing : </label>
               <select onChange={(e) => setLimit(e.target.value)}>
@@ -184,8 +201,8 @@ const Product = () => {
                 <option value={100}> 100 </option>
               </select>
             </div>
-          </div>
-          <div className="searchByDate">
+          </div> */}
+          {/* <div className="searchByDate">
             <div>
               <label>Category : </label>
               <select
@@ -222,7 +239,7 @@ const Product = () => {
                 )}
               </select>
             </div>
-          </div>
+          </div> */}
 
           {loading === true ? (
             <Alert>
@@ -245,9 +262,9 @@ const Product = () => {
                       <th>MRP</th>
                       <th>Selling Price</th>
                       <th>Discount</th>
-                      <th>Varient</th>
+                      <th>Quantity</th>
                       <th>Stock</th>
-                      <th>Created At</th>
+                      <th>Status</th>
                       <th>Option</th>
                     </tr>
                   </thead>
@@ -258,19 +275,19 @@ const Product = () => {
                         <td>#{index + 1} </td>
                         <td>
                           <img
-                            src={i.productImage?.[0]}
+                            src={i.images[0]?.img}
                             alt=""
                             style={{ maxWidth: "80px" }}
                           />
                         </td>
-                        <td>{i.productName}</td>
-                        <td>{i.categoryId?.name}</td>
-                        <td>{i.subcategoryId?.name}</td>
-                        <td>₹{i.originalPrice}</td>
+                        <td>{i.name}</td>
+                        <td>{i.category?.name}</td>
+                        <td>{i.subcategory?.name}</td>
+                        <td style={{ paddingLeft: " 30px" }}>₹{i.price}</td>
                         <td>₹{i.discountPrice}</td>
-                        <td>{i.discount}%</td>
-                        <td>
-                          {i.varient === true ? (
+                        <td style={{ paddingLeft: "26px" }}>{i.discount}%</td>
+                        <td style={{ paddingLeft: "28px" }}>
+                          {/* {i.varient === true ? (
                             <Link
                               to={`/product-variant/${i._id}/${i.productName}`}
                             >
@@ -280,11 +297,24 @@ const Product = () => {
                             </Link>
                           ) : (
                             ""
-                          )}
+                          )} */}
+                          {i.quantity}
                         </td>
 
-                        <td>{i.stock}</td>
-                        <td>{i.createdAt?.slice(0, 10)}</td>
+                        <td
+                          style={{
+                            paddingLeft: "28px",
+                          }}
+                        >
+                          {i.Stock}
+                        </td>
+                        <td
+                          style={{ cursor: "pointer" }}
+                          onClick={() => changeStatus(i._id)}
+                        >
+                          {" "}
+                          {BadgeSelector(i.available)}{" "}
+                        </td>
                         <td>
                           <span className="flexCont">
                             <Link to={`/edit-product/${i._id}`}>
@@ -305,7 +335,7 @@ const Product = () => {
                 </Table>
               </div>
 
-              <div className="pagination">
+              {/* <div className="pagination">
                 <button onClick={() => Prev()} className="prevBtn">
                   <i className="fa-solid fa-backward"></i>
                 </button>
@@ -334,7 +364,7 @@ const Product = () => {
                     <i className="fa-sharp fa-solid fa-forward"></i>
                   </button>
                 )}
-              </div>
+              </div> */}
             </>
           )}
         </section>

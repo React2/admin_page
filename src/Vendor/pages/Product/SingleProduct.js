@@ -10,14 +10,15 @@ import HOC from "../../layout/HOC";
 const SingleProduct = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
-  const BaseUrl = "https://ecommerce-backend-ochre-phi.vercel.app/";
+  const BaseUrl = "https://jatin-tagra-backend.vercel.app";
 
   const getOrder = async () => {
     try {
       const response = await axios.get(
-        `${BaseUrl}api/v1/vendor/Product/view/${id}`
+        `${BaseUrl}/api/v1/product/viewProduct/${id}`
       );
       setData(response.data.data);
+      console.log(response.data);
     } catch (e) {
       console.log(e);
     }
@@ -45,19 +46,24 @@ const SingleProduct = () => {
         <section className="sectionCont">
           <Form>
             <div className="img-cont">
-              {data?.productImage?.map((i, index) => (
-                <img src={i} alt="" className="centerImage" key={index} />
+              {data?.images?.map((i, index) => (
+                <img src={i.img} alt="" className="centerImage" key={index} />
               ))}
             </div>
-            {ValueChecker(data?.productName, "Product Name")}
+            {ValueChecker(data?.name, "Product Name")}
             {ValueChecker(data?.description, "Description")}
-            {ValueChecker(data?.categoryId?.name, "Category")}
-            {ValueChecker(data?.subcategoryId?.name, "Sub-Category")}
-            {ValueChecker(data?.originalPrice, "MRP")}
-            {ValueChecker(data?.discountPrice, "Selling Price")}
+            {ValueChecker(data?.category?.name, "Category")}
+            {ValueChecker(data?.subcategory?.name, "Sub-Category")}
+            {ValueChecker(data?.price, "MRP")}
+            {ValueChecker(data?.discountPrice, "Discount Price")}
             {ValueChecker(data?.discount, "Discount")}
             {ValueChecker(data?.returnPolicy, "Return Policy")}
-            {ValueChecker(data?.stock, "Stock")}
+            {ValueChecker(data?.Stock, "Stock")}
+            {ValueChecker(data?.vendorId?.fullName, "Vendor Name")}
+            {ValueChecker(data?.vendorId?.city, "Vendor Location")}
+            {ValueChecker(data?.vendorId?.email, "Vendor Email")}
+            {ValueChecker(data?.vendorId?.phone, "Vendor Mobile")}
+            {ValueChecker(data?.quantity, "Quantity")}
             {ValueChecker(data?.stockStatus, "Stock Status")}
             {ValueChecker(data?.viewOnwebsite, "Active on Website")}
             {ValueChecker(data?.createdAt?.slice(0, 10), "Created At")}

@@ -63,10 +63,11 @@ const Category = () => {
   const fetchData = useCallback(async () => {
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/paginateCategoriesSearch?page=${page}&limit=${limit}&search=${search}&toDate=${FinalToDate}&fromDate=${FinalFromDate}`
+        `https://jatin-tagra-backend.vercel.app/api/v1/vendor/getCategory`
       );
-      setData(data.data.docs);
-      setTotal(data.data.total);
+      console.log(data.categories);
+      setData(data.categories);
+      setTotal(data.categories.length);
       setPages(data.data.pages);
     } catch (e) {
       console.log(e);
@@ -236,7 +237,7 @@ const Category = () => {
           >
             All Category's ( Total : {total} )
           </span>
-          <button
+          {/* <button
             onClick={() => {
               setEdit(false);
               setModalShow(true);
@@ -244,11 +245,11 @@ const Category = () => {
             className="md:py-2 px-3 md:px-4 py-1 rounded-sm bg-[#0c0c0c] text-white tracking-wider"
           >
             Add Category
-          </button>
+          </button> */}
         </div>
 
         <section className="sectionCont">
-          <div className="filterBox">
+          {/* <div className="filterBox">
             <img
               src="https://t4.ftcdn.net/jpg/01/41/97/61/360_F_141976137_kQrdYIvfn3e0RT1EWbZOmQciOKLMgCwG.jpg"
               alt=""
@@ -258,9 +259,9 @@ const Category = () => {
               placeholder="Start typing to search for Category"
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Starting Date : </label>
               <input
@@ -277,9 +278,9 @@ const Category = () => {
                 min={fromDate}
               />
             </div>
-          </div>
+          </div> */}
 
-          <div className="searchByDate">
+          {/* <div className="searchByDate">
             <div>
               <label>Showing : </label>
               <select onChange={(e) => setLimit(e.target.value)}>
@@ -294,7 +295,7 @@ const Category = () => {
                 <option value={100}> 100 </option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           {data?.length === 0 || !data ? (
             <Alert>Categories Not Found</Alert>
@@ -305,10 +306,11 @@ const Category = () => {
                   <thead>
                     <tr>
                       <th>No.</th>
+                      <th>Image</th>
                       <th>Name</th>
-                      <th>Type</th>
-                      <th>Status</th>
-                      <th>Option</th>
+                      {/* <th>Type</th> */}
+                      {/* <th>Status</th>
+                      <th>Option</th> */}
                     </tr>
                   </thead>
 
@@ -316,10 +318,19 @@ const Category = () => {
                     {data?.map((i, index) => (
                       <tr key={index}>
                         <td>#{index + 1} </td>
-                        <td>{i.name}</td>
-                        <td>{i.gender} </td>
-                        <td> {BadgeSelector(i.approvalStatus)} </td>
                         <td>
+                          <img
+                            src={i.image}
+                            alt=""
+                            style={{
+                              maxWidth: "80px",
+                              maxHeight: "100px",
+                            }}
+                          />
+                        </td>
+                        <td>{i.name}</td> <td>{i.gender} </td>
+                        {/* <td> {BadgeSelector(i.approvalStatus)} </td> */}
+                        {/* <td>
                           <span className="flexCont">
                             <i
                               className="fa-solid fa-trash"
@@ -335,14 +346,14 @@ const Category = () => {
                               }}
                             ></i>
                           </span>
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
                 </Table>
               </div>
 
-              <div className="pagination">
+              {/* <div className="pagination">
                 <button onClick={() => Prev()} className="prevBtn">
                   <i className="fa-solid fa-backward"></i>
                 </button>
@@ -371,7 +382,7 @@ const Category = () => {
                     <i className="fa-sharp fa-solid fa-forward"></i>
                   </button>
                 )}
-              </div>
+              </div> */}
             </>
           )}
         </section>

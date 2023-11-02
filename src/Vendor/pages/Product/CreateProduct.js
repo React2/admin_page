@@ -16,20 +16,29 @@ const CreateProduct = () => {
   const [discount, setDiscount] = useState("");
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
-  const [returnPolicy, setReturnPolicy] = useState("");
+
   const [varient, setVariant] = useState(null);
-  const [size, setSize] = useState(null);
+
   const [categoryArr, setCategoryArr] = useState([]);
   const [subCatArr, setSubCatArr] = useState([]);
   const [stock, setStock] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [packageCharges, setPackageCharges] = useState(null);
+  const [gst, setGst] = useState(null);
+  const [cGst, setCGst] = useState(null);
+  const [sGst, setSGst] = useState(null);
+  const [quantity, setQuantity] = useState(null);
+  const [size, setSize] = useState(null);
+  const [nutirient, setNutirient] = useState(null);
+  const [storageTips, setStorageTips] = useState(null);
+  const [manufactureDetails, setManufactureDetails] = useState(null);
 
   const getCategory = async () => {
     try {
       const res = await axios.get(
-        "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/Category/allCategory"
+        "https://jatin-tagra-backend.vercel.app/api/v1/vendor/getCategory"
       );
-      setCategoryArr(res.data.data);
+      setCategoryArr(res.data.categories);
     } catch (e) {
       console.log(e);
     }
@@ -38,9 +47,10 @@ const CreateProduct = () => {
   const getSubCategory = async (payload) => {
     try {
       const res = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/SubCategory/allSubcategoryById/${payload}`
+        `https://jatin-tagra-backend.vercel.app/api/v1/SubCategory/allSubcategoryById/${payload}`
       );
       setSubCatArr(res.data.data);
+      // console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -49,8 +59,6 @@ const CreateProduct = () => {
   useEffect(() => {
     getCategory();
   }, []);
-
-
 
   const token = localStorage.getItem("token");
   const Auth = {
@@ -63,26 +71,38 @@ const CreateProduct = () => {
   Array.from(image).forEach((img) => {
     fd.append("image", img);
   });
-  fd.append("categoryId", categoryId);
-  fd.append("subCategoryId", subCategoryId);
+  fd.append("category", categoryId);
+  fd.append("subcategoryId", subCategoryId);
   fd.append("discountActive", discountActive);
-  fd.append("originalPrice", originalPrice);
-  fd.append("discount", discount);
-  fd.append("productName", productName);
-  fd.append("description", description);
-  fd.append("varient", varient);
-  fd.append("returnPolicy", returnPolicy);
+  fd.append("price", originalPrice);
+  fd.append("packageCharges", packageCharges);
+  fd.append("gst", gst);
+  fd.append("cGst", cGst);
+  fd.append("sGst", sGst);
+  fd.append("quantity", quantity);
   fd.append("size", size);
-  fd.append("stock", stock);
+  fd.append("nutirient", nutirient);
+  fd.append("storageTips", storageTips);
+  fd.append("manufactureDetails", manufactureDetails);
+
+  fd.append("discount", discount);
+  fd.append("name", productName);
+  fd.append("description", description);
+  // fd.append("varient", varient);
+  // fd.append("returnPolicy", returnPolicy);
 
   const createProduct = async (e) => {
     setLoading(true);
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/vendor/Product/add`,
+        `https://jatin-tagra-backend.vercel.app/api/v1/product/addProduct`,
         fd,
-        Auth
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGQ2N2Y5NWE4ZDQzOTg2ZTE0NmYwNyIsImlhdCI6MTY5ODkyMTI5NSwiZXhwIjoxNjk5MTgwNDk1fQ.GwcLj0REjCQHezFqkSqSAxeuPDX7ssu7_YKgiAokCc0`,
+          },
+        }
       );
       toast.success(res.data.message);
       setLoading(false);
@@ -122,7 +142,6 @@ const CreateProduct = () => {
             <Form.Control
               type="file"
               multiple
-              required
               onChange={(e) => setImage(e.target.files)}
             />
           </Form.Group>
@@ -183,6 +202,79 @@ const CreateProduct = () => {
           </Form.Group>
 
           <Form.Group className="mb-3">
+            <Form.Label>Package Charges</Form.Label>
+            <Form.Control
+              type="number"
+              required
+              onChange={(e) => setPackageCharges(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>GST</Form.Label>
+            <Form.Control
+              type="number"
+              required
+              onChange={(e) => setGst(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>CGST</Form.Label>
+            <Form.Control
+              type="number"
+              required
+              onChange={(e) => setCGst(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>SGST</Form.Label>
+            <Form.Control
+              type="number"
+              required
+              onChange={(e) => setSGst(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Product Quantity</Form.Label>
+            <Form.Control
+              type="number"
+              required
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Product Size</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(e) => setSize(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Product Nutirient</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(e) => setNutirient(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Product Storage Tips</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(e) => setStorageTips(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Product Manufacture Details</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={(e) => setManufactureDetails(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
             <Form.Label>
               Do you want activate discount in this product
             </Form.Label>
@@ -211,7 +303,7 @@ const CreateProduct = () => {
             ""
           )}
 
-          <Form.Group className="mb-3">
+          {/* <Form.Group className="mb-3">
             <Form.Label>Return Policy</Form.Label>
             <FloatingLabel>
               <Form.Control
@@ -221,30 +313,18 @@ const CreateProduct = () => {
                 onChange={(e) => setReturnPolicy(e.target.value)}
               />
             </FloatingLabel>
-          </Form.Group>
+          </Form.Group> */}
 
-          <Form.Group className="mb-3">
+          {/* <Form.Group className="mb-3">
             <Form.Label>Do you want add Varient in this product</Form.Label>
             <Form.Select onChange={(e) => setVariant(e.target.value)} required>
               <option></option>
               <option value={"true"}>Yes</option>
               <option value={"false"}>NO</option>
             </Form.Select>
-          </Form.Group>
-          {varient === "false" ? (
-            <Form.Group className="mb-3">
-              <Form.Label>Do you want add Size in this product</Form.Label>
-              <Form.Select onChange={(e) => setSize(e.target.value)} required>
-                <option></option>
-                <option value={"true"}>Yes</option>
-                <option value={"false"}>NO</option>
-              </Form.Select>
-            </Form.Group>
-          ) : (
-            ""
-          )}
+          </Form.Group> */}
 
-          {varient === "false" && size === "false" ? (
+          {/* {varient === "false" && size === "false" ? (
             <Form.Group className="mb-3">
               <Form.Label>Stock</Form.Label>
               <Form.Control
@@ -255,7 +335,7 @@ const CreateProduct = () => {
             </Form.Group>
           ) : (
             ""
-          )}
+          )} */}
 
           <div className="w-100 d-flex justify-content-between">
             <Button variant="success" type="submit">

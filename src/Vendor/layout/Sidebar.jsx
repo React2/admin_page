@@ -28,8 +28,11 @@ const Sidebar = ({ hamb, setHamb }) => {
         Auth
       );
       setProfile(response.data.data);
-      if(response.data.data.kycStatus === "APPROVED" && response.data.data.kybStatus === "APPROVED" ){
-        localStorage.setItem("profile_status" , "APPROVED")
+      if (
+        response.data.data.kycStatus === "APPROVED" &&
+        response.data.data.kybStatus === "APPROVED"
+      ) {
+        localStorage.setItem("profile_status", "APPROVED");
       }
     } catch {}
   };
@@ -58,7 +61,9 @@ const Sidebar = ({ hamb, setHamb }) => {
         name: "KYB",
       },
       {
-        icon:  <i className="fa-solid fa-clipboard text-xl mr-3 rounded-full " />,
+        icon: (
+          <i className="fa-solid fa-clipboard text-xl mr-3 rounded-full " />
+        ),
         link: "/Category",
         name: "Category",
       },
@@ -82,17 +87,30 @@ const Sidebar = ({ hamb, setHamb }) => {
       },
 
       {
-        icon: <i className="fa-solid fa-droplet  text-xl mr-3 rounded-full"></i>,
+        icon: (
+          <i className="fa-solid fa-droplet  text-xl mr-3 rounded-full"></i>
+        ),
         link: "/vendor/colors",
         name: "Colors",
       },
       {
-        icon: <i className="fa-solid fa-bag-shopping  text-xl mr-3 rounded-full"></i>,
+        icon: (
+          <i className="fa-solid fa-bag-shopping  text-xl mr-3 rounded-full"></i>
+        ),
         link: "/vendor-order",
         name: "Order",
       },
       {
-        icon: <i className="fa-solid fa-bag-shopping  text-xl mr-3 rounded-full"></i>,
+        icon: (
+          <i className="fa-solid fa-bag-shopping  text-xl mr-3 rounded-full"></i>
+        ),
+        link: "/vendor-order",
+        name: "Order",
+      },
+      {
+        icon: (
+          <i className="fa-solid fa-bag-shopping  text-xl mr-3 rounded-full"></i>
+        ),
         link: "/vendor/return-order",
         name: "Return Order",
       },
@@ -103,6 +121,18 @@ const Sidebar = ({ hamb, setHamb }) => {
         icon: <MdDashboardCustomize className="text-xl mr-3 rounded-full " />,
         link: "/dashboard ",
         name: "Dashboard",
+      },
+      {
+        icon: (
+          <i className="fa-solid fa-cart-shopping text-xl mr-3 rounded-full " />
+        ),
+        link: "/Product ",
+        name: "Products",
+      },
+      {
+        icon: <i className="fa-solid fa-folder text-xl mr-3 rounded-full " />,
+        link: "/Category ",
+        name: "Category",
       },
       {
         icon: <MdDashboardCustomize className="text-xl mr-3 rounded-full " />,

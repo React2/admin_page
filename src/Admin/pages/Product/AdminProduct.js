@@ -287,7 +287,7 @@ const AdminProduct = () => {
                         <td>#{index + 1} </td>
                         <td>
                           <img
-                            src={i.images[0].img}
+                            src={i.images[0]?.img}
                             alt=""
                             style={{ maxWidth: "80px" }}
                           />

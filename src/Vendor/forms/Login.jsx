@@ -19,21 +19,24 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    navigate("/dashboard");
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://ecommerce-backend-ochre-phi.vercel.app/api/v1/vendor/login/withPassword",
+        "https://jatin-tagra-backend.vercel.app/api/v1/vendor/login",
         {
           email,
           password,
           userType: "VENDOR",
         }
       );
-      localStorage.setItem("token", data.data.accessToken);
+      localStorage.setItem("token", data.accessToken);
+      console.log(data);
+      localStorage.setItem("VendorName", data.data.fullName);
       localStorage.setItem("AdminName", email);
-      toast.success("Welcome Admin");
+
+      toast.success(`Welcome ${localStorage.getItem("VendorName")}`);
       setLoading(false);
+      navigate("/dashboard");
     } catch (err) {
       setLoading(false);
       setError(true);
