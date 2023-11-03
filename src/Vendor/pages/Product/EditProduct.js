@@ -34,7 +34,8 @@ const EditProduct = () => {
   const [nutirient, setNutirient] = useState(null);
   const [storageTips, setStorageTips] = useState(null);
   const [manufactureDetails, setManufactureDetails] = useState(null);
-  const [subCategoryName, setsubCategoryName] = useState("");
+  const [subCategoryName, setSubCategoryName] = useState("");
+  const [sSubCategoryName, setSSubCategoryName] = useState("");
   const navigate = useNavigate();
   const Baseurl = `https://jatin-tagra-backend.vercel.app`;
 
@@ -43,13 +44,16 @@ const EditProduct = () => {
       const res = await axios.get(
         `${Baseurl}/api/v1/product/viewProduct/${id}`
       );
-      console.log(res.data.data.subcategory.name);
+
+      setSubCatArr(res.data.subcategory);
+      setSSubCategoryName(res.data.data.subcategory._id);
       setProductImages(res.data.data.images);
       setCategoryId(res.data.data.category._id);
       setCategoryName(res.data.data?.category.name);
       setProductName(res.data.data.name);
       subCategoryId(res.data.data?.subcategory?._id);
-      setsubCategoryName(res.data.data?.subcategory?.name);
+
+      setSubCategoryName(res.data.data?.subcategory?.name);
     } catch {}
   };
 
@@ -96,17 +100,14 @@ const EditProduct = () => {
   const createProduct = async (e) => {
     setLoading(true);
     e.preventDefault();
-
-    if (!categoryId && !subCategoryId) {
-      toast.error("Category and Sub-Category Required");
-      return;
+    if (!subCategoryId) {
+      fd.append("subcategoryId", sSubCategoryName);
     }
-    if (categoryId) {
-      fd.append("category", categoryId);
-    }
+    fd.append("category", categoryId);
     if (subCategoryId) {
       fd.append("subcategoryId", subCategoryId);
     }
+
     if (discountActive) {
       fd.append("discountActive", discountActive);
     }
@@ -125,9 +126,7 @@ const EditProduct = () => {
     if (description) {
       fd.append("description", description);
     }
-    if (size) {
-      fd.append("size", size);
-    }
+
     if (stock) {
       fd.append("Stock", stock);
     }
@@ -166,10 +165,6 @@ const EditProduct = () => {
     }
     if (discount) {
       fd.append("discount", discount);
-    }
-
-    if (description) {
-      fd.append("description", description);
     }
 
     try {
@@ -222,7 +217,6 @@ const EditProduct = () => {
             <Form.Control
               type="file"
               multiple
-              required
               onChange={(e) => setImage(e.target.files)}
             />
           </Form.Group>

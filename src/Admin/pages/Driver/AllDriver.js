@@ -111,16 +111,12 @@ const AllDriver = () => {
                 <Table>
                   <thead>
                     <tr>
-                      <th>Sno.</th>
+                      <th>S.No.</th>
                       <th>Full Name</th>
                       <th>Phone Number</th>
-                      {/* <th>Email Address</th> */}
                       <th>Wallet</th>
                       <th>language</th>
                       <th>No. OF Reviews</th>
-                      {/* <th>Status</th> */}
-                      {/* <th></th>
-                      <th></th> */}
                     </tr>
                   </thead>
 
@@ -129,16 +125,15 @@ const AllDriver = () => {
                       <tr key={index}>
                         <td>#{index + 1} </td>
                         <td>
+                          {" "}
                           {i.firstName} {i.lastName}
                         </td>
                         <td>{i.phone} </td>
-                        {/* <td>{i.email} </td> */}
                         <td style={{ paddingLeft: "30px" }}>{i.wallet} </td>
                         <td style={{ paddingLeft: "30px" }}>{i.language} </td>
                         <td style={{ paddingLeft: "50px" }}>
                           {i.numOfReviews}{" "}
                         </td>
-                        {/* <td> {i.status} </td>
                         <td>
                           <button
                             className="md:py-2 px-3 md:px-4 py-1 rounded-sm bg-[#0c0c0c] text-white tracking-wider"
@@ -146,7 +141,8 @@ const AllDriver = () => {
                           >
                             Change Status
                           </button>
-                        </td> */}
+                        </td>{" "}
+                        */}
                         {/* <td>
                           <span className="flexCont">
                             <i

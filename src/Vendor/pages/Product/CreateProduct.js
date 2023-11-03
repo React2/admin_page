@@ -153,9 +153,9 @@ const CreateProduct = () => {
                 setCategoryId(e.target.value);
                 getSubCategory(e.target.value);
               }}
-              required
+              required // Add the 'required' attribute here
             >
-              <option>-- Select Category --</option>
+              <option value="">-- Select Category --</option>
               {categoryArr?.map((item) => (
                 <option value={item._id} key={item._id}>
                   {item.name}
@@ -170,7 +170,7 @@ const CreateProduct = () => {
               onChange={(e) => setSubCategoryId(e.target.value)}
               required
             >
-              <option>-- Select Sub-Category --</option>
+              <option value="">-- Select Sub-Category --</option>
               {subCatArr?.map((item) => (
                 <option value={item._id} key={item._id}>
                   {item.name}

@@ -229,27 +229,32 @@ const AdminShiftPreference = () => {
 
             <Form.Select
               className="mb-3"
+              required
               onChange={(e) => setSalaryPer(e.target.value)}
             >
-              <option>Select Salary Per</option>
-              <option>Month</option>
-              <option>Week</option>
+              <option value="">Select Salary Per</option>
+              <option value="Month">Month</option>
+              <option value="Week">Week</option>
             </Form.Select>
+
             <Form.Select
               className="mb-3"
+              required
               onChange={(e) => setDayType(e.target.value)}
             >
-              <option>Select Day Type</option>
-              <option>Daily </option>
-              <option>Weekly</option>
+              <option value="">Select Day Type</option>
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
             </Form.Select>
+
             <Form.Select
               className="mb-3"
+              required
               onChange={(e) => setType(e.target.value)}
             >
-              <option>Select Type</option>
-              <option>Part Time</option>
-              <option>Full Time</option>
+              <option value="">Select Type</option>
+              <option value="Part Time">Part Time</option>
+              <option value="Full Time">Full Time</option>
             </Form.Select>
 
             <Button

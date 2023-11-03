@@ -248,32 +248,26 @@ const AdminPreferedArea = () => {
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
               />
+
               <Form.Select
                 className="mb-3"
+                required
                 onChange={(e) => setSalaryPer(e.target.value)}
+                value={salaryPer || ""}
               >
-                <option>Select Salary Per</option>
-                <option>Month</option>
-                <option>Week</option>
+                <option value="">Select Salary Per</option>
+                <option value="Month">Month</option>
+                <option value="Week">Week</option>
               </Form.Select>
 
               <Form.Label>Km</Form.Label>
               <Form.Control
                 type="number"
-                required
                 value={km}
+                required
                 onChange={(e) => setKm(e.target.value)}
               />
             </Form.Group>
-            {/* <Form.Group className="mb-3">
-              <Form.Label>Select Type</Form.Label>
-              <Form.Select onChange={(e) => setGender(e.target.value)}>
-                <option> {gender} </option>
-                <option value="kid">Kid</option>
-                <option value="women">Women</option>
-                <option value="men">Men</option>
-              </Form.Select>
-            </Form.Group> */}
 
             <Button
               style={{

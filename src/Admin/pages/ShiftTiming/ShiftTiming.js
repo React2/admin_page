@@ -79,7 +79,7 @@ const ShiftTiming = () => {
       setData(data);
       console.log(data.data);
 
-      setTotal(data.categories.length);
+      setTotal(data.data.length);
       // setPages(data.data.pages);
       setLoading(false);
     } catch (e) {
@@ -193,7 +193,7 @@ const ShiftTiming = () => {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             {" "}
-            {edit ? `Edit ${name}` : " Add Shift Preference"}
+            {edit ? `Edit ${name}` : " Add Shift Timing"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -400,7 +400,7 @@ const ShiftTiming = () => {
             className="tracking-widest text-slate-900 font-semibold uppercase"
             style={{ fontSize: "1.5rem" }}
           >
-            Area Preference ( Total : {total} )
+            Add Shift Timing ( Total : {total} )
           </span>
           <button
             onClick={() => {
@@ -409,7 +409,7 @@ const ShiftTiming = () => {
             }}
             className="md:py-2 px-3 md:px-4 py-1 rounded-sm bg-[#0c0c0c] text-white tracking-wider"
           >
-            Add Shift-Preference
+            Add Shift-Timing
           </button>
         </div>
         <section className="sectionCont">
