@@ -16,8 +16,12 @@ const Transaction = () => {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `https://ecommerce-backend-ochre-phi.vercel.app/api/v1/admin/allTransactionUser`
+        `https://jatin-tagra-backend.vercel.app/api/v1/admin/allTransactionUser`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       );
+      console.log(data.data);
       setData(data.data);
       setTotal(data.data.length);
       setLoading(false);
@@ -75,11 +79,12 @@ const Transaction = () => {
                 <thead>
                   <tr>
                     <th>Sno.</th>
-                    <th>User Name</th>
                     <th>Order Id</th>
-                    <th>Amount</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Amount Paid</th>
                     <th>Type</th>
-                    <th>Status</th>
+                    {/* <th>Status</th> */}
                     <th></th>
                   </tr>
                 </thead>
@@ -88,16 +93,12 @@ const Transaction = () => {
                   {filterData?.map((i, index) => (
                     <tr key={index}>
                       <td>#{index + 1} </td>
-                      <td>{i.user?.fullName}</td>
                       <td>{i.orderId?.orderId}</td>
+                      <td>{i.user?.fullName}</td>
+                      <td>{i.user?.email}</td>
                       <td>{i.amount}</td>
                       <td>{i.type}</td>
                       <td> {i.Status} </td>
-                      <td>
-                        <Link to={`/admin/order/${i.orderId?._id}`}>
-                          <i className="fa-solid fa-eye" />
-                        </Link>
-                      </td>
                     </tr>
                   ))}
                 </tbody>

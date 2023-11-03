@@ -46,6 +46,11 @@ import VReturnOrder from "./Vendor/pages/Order/VReturnOrder";
 import AllDriver from "./Admin/pages/Driver/AllDriver";
 import AllQuary from "./Admin/pages/Quary/AllQuary";
 import AllComplaints from "./Admin/pages/Complaint/AllComplaints.js";
+import AdminShiftPreference from "./Admin/pages/ShiftPreference/ShiftPreferce";
+import AdminPreferedArea from "./Admin/pages/PreferedArea/PreferedArea";
+import ShiftTiming from "./Admin/pages/ShiftTiming/ShiftTiming";
+import DeliveryOrder from "./Admin/pages/DeliveryOrder/DeliveryOrder";
+import CancelOrder from "./Admin/pages/CancelOrders/CancelOrder";
 
 // ----------------
 function App() {
@@ -103,6 +108,14 @@ function App() {
         <Route path="/admin/Driver" element={<AllDriver />} />
         <Route path="/admin/AllQuary" element={<AllQuary />} />
         <Route path="/admin/AllComplaint" element={<AllComplaints />} />
+        <Route
+          path="/AdminShiftPreference"
+          element={<AdminShiftPreference />}
+        />
+        <Route path="/AdminPreferedArea" element={<AdminPreferedArea />} />
+        <Route path="/AdminShiftTiming" element={<ShiftTiming />} />
+        <Route path="/admin/DeliveryOrder" element={<DeliveryOrder />} />
+        <Route path="/admin/CancelOrder" element={<CancelOrder />} />
       </Routes>
     </>
   );

@@ -50,6 +50,21 @@ const Sidebar = ({ hamb, setHamb }) => {
     },
     {
       icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
+      link: "/AdminShiftPreference",
+      name: "Shift Prefrence",
+    },
+    {
+      icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
+      link: "/AdminPreferedArea",
+      name: "Prefered Area",
+    },
+    {
+      icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
+      link: "/AdminShiftTiming",
+      name: "ShifT Timing",
+    },
+    {
+      icon: <i className="fa-solid fa-user text-xl mr-3 rounded-full " />,
       link: "/admin/AllComplaint",
       name: " Complaints",
     },
@@ -75,47 +90,61 @@ const Sidebar = ({ hamb, setHamb }) => {
       icon: (
         <i className="fa-solid fa-bag-shopping text-xl mr-3 rounded-full " />
       ),
-      link: "/return-order",
+      link: "/admin/DeliveryOrder",
+      name: "Delivery Order",
+    },
+    {
+      icon: (
+        <i className="fa-solid fa-bag-shopping text-xl mr-3 rounded-full " />
+      ),
+      link: "/admin/CancelOrder",
       name: "Return Order",
     },
+    // {
+    //   icon: (
+    //     <i className="fa-solid fa-bag-shopping text-xl mr-3 rounded-full " />
+    //   ),
+    //   link: "/return-order",
+    //   name: "Return Order",
+    // },
     {
       icon: <i className="fa-solid fa-money-bill text-xl mr-3 rounded-full " />,
       link: "/admin/transaction",
       name: "Transaction",
     },
-    {
-      icon: <i className="fa-solid fa-file text-xl mr-3 rounded-full " />,
-      link: "/admin/kyc-list",
-      name: "Kyc List",
-    },
-    {
-      icon: <i className="fa-solid fa-file text-xl mr-3 rounded-full " />,
-      link: "/admin/kyb",
-      name: "Kyb List",
-    },
+    // {
+    //   icon: <i className="fa-solid fa-file text-xl mr-3 rounded-full " />,
+    //   link: "/admin/kyc-list",
+    //   name: "Kyc List",
+    // },
+    // {
+    //   icon: <i className="fa-solid fa-file text-xl mr-3 rounded-full " />,
+    //   link: "/admin/kyb",
+    //   name: "Kyb List",
+    // },
 
-    {
-      icon: <i className="fa-solid fa-code text-xl mr-3 rounded-full " />,
-      link: "/coupon",
-      name: "Coupon",
-    },
-    {
-      icon: <i className=" fa-solid fa-bell text-xl mr-3 rounded-full " />,
-      link: "/notification",
-      name: "Notification",
-    },
-    {
-      icon: <i className=" fa-solid fa-ticket text-xl mr-3 rounded-full " />,
-      link: "/admin/ticket",
-      name: "Ticket",
-    },
-    {
-      icon: (
-        <i className=" fa-solid fa-money-bill text-xl mr-3 rounded-full " />
-      ),
-      link: "/admin/COD",
-      name: "COD",
-    },
+    // {
+    //   icon: <i className="fa-solid fa-code text-xl mr-3 rounded-full " />,
+    //   link: "/coupon",
+    //   name: "Coupon",
+    // },
+    // {
+    //   icon: <i className=" fa-solid fa-bell text-xl mr-3 rounded-full " />,
+    //   link: "/notification",
+    //   name: "Notification",
+    // },
+    // {
+    //   icon: <i className=" fa-solid fa-ticket text-xl mr-3 rounded-full " />,
+    //   link: "/admin/ticket",
+    //   name: "Ticket",
+    // },
+    // {
+    //   icon: (
+    //     <i className=" fa-solid fa-money-bill text-xl mr-3 rounded-full " />
+    //   ),
+    //   link: "/admin/COD",
+    //   name: "COD",
+    // },
   ];
 
   const logOut = () => {
